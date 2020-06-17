@@ -42,3 +42,45 @@ CREATE TABLE LOCATIONS (
                             DEP_ID_LOC CHAR(9) NOT NULL,
                             PRIMARY KEY (LOCT_ID,DEP_ID_LOC));
                             
+ -- To find Employees address starting with Elgin------
+;
+select F_NAME , L_NAME from EMPLOYEES
+where ADDRESS LIKE '%Elgin,IL%' ;
+
+--To find Employees year starting with 1970--
+;
+select F_NAME , L_NAME from EMPLOYEES
+where B_DATE LIKE '197%' ;
+
+--To find Employees whose salary is in range 60000 and 70000 with deparatment 5--
+
+select * from EMPLOYEES
+where (SALARY BETWEEN 60000 and 70000)  and DEP_ID = 5 ;
+
+--To find Employees order by dep_id--
+select F_NAME, L_NAME, DEP_ID  from EMPLOYEES order by DEP_ID;
+
+--To find Employees order by dep_id and last name in descending order --
+select F_NAME, L_NAME, DEP_ID  from EMPLOYEES
+order by DEP_ID desc, L_NAME desc;
+
+--To find number of Employees group by dep_id  --
+select DEP_ID, COUNT(*) from EMPLOYEES group by DEP_ID;
+
+--To find number of Employees and average salaries group by dep_id  and order by avg salary--
+
+select DEP_ID, COUNT(*) AS "NUM_EMPLOYEES", AVG(SALARY) AS "AVG_SALARY"
+from EMPLOYEES group by DEP_ID;
+
+--To find number of Employees and average salaries group by dep_id(<4)  and order by avg salary--
+select DEP_ID, COUNT(*) AS "NUM_EMPLOYEES", AVG(SALARY) AS "AVG_SALARY"
+from EMPLOYEES group by DEP_ID having count(*) < 4 order by AVG_SALARY;
+
+--using Aliases
+
+select D.DEP_NAME , E.F_NAME, E.L_NAME
+from EMPLOYEES as E, DEPARTMENTS as D
+where E.DEP_ID = D.DEPT_ID_DEP
+order by D.DEP_NAME, E.L_NAME desc ;
+                            
+                            
